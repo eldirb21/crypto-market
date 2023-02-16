@@ -17,7 +17,7 @@ import {
 } from '../../components/atoms';
 import {assetData} from '../../../globaldata';
 const {width, height} = Dimensions.get('window');
-const Asset = () => {
+const Asset = ({navigation}) => {
   const [assets, setassets] = useState(assetData);
   const [totalAsset, settotalAsset] = useState(null);
 
@@ -110,6 +110,7 @@ const Asset = () => {
             {assets.map((item, index) => {
               return (
                 <TouchableOpacity
+                  onPress={() => navigation.navigate('EditAsset', item)}
                   key={index}
                   style={{
                     flexDirection: 'row',
@@ -139,7 +140,11 @@ const Asset = () => {
           </ScrollView>
         </View>
       </Contents>
-      <Floatings icon="plus" bacground={'#CB9607'}/>
+      <Floatings
+        icon="plus"
+        bacground={'#CB9607'}
+        onPress={() => navigation.navigate('AddAsset')}
+      />
     </Containers>
   );
 };
