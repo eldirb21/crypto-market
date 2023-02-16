@@ -55,7 +55,7 @@ function MyTabBar({state, descriptors, navigation}) {
             iconName = 'home';
             break;
           case 'Market':
-            iconName = 'equalizer';//stacked-line-chart
+            iconName = 'equalizer';
             break;
           case 'Assets':
             iconName = 'account-balance-wallet';
@@ -67,7 +67,6 @@ function MyTabBar({state, descriptors, navigation}) {
             iconName = 'folder-shared';
             break;
         }
-        console.log(iconName);
         return (
           <TouchableOpacity
             key={index}
