@@ -5,63 +5,63 @@
  * @format
  */
 
-import React from 'react';
-import type { PropsWithChildren } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useEffect} from 'react';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import StackNav from './src/nav/stackNav';
+import axios from 'axios';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
 
-function Section({ children, title }: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const apiUrl = 'https://api.binance.com/api/v3/ticker/price';
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App() {
+  useEffect(() => {
+    fetchBtcPrice();
+    fetchCryptoPrices();
+  }, []);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const fetchCryptoPrices = async () => {
+    try {
+      const response = await axios.get(apiUrl, {
+        params: {
+          quoteAsset: 'BUSD',
+        },
+      });
+      console.log(response);
+
+      // const prices = response.data
+      //   .filter(data => {
+      //     console.log(data);
+
+      //     const symbol = data.symbol;
+      //     return symbol.endsWith('BUSD');
+      //   })
+      //   .map(data => {
+      //     const symbol = data.symbol;
+      //     const price = parseFloat(data.price);
+      //     const crypto = symbol.replace('BUSD', '');
+      //     return {crypto, price};
+      //   });
+      // console.log(prices);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchBtcPrice = async () => {
+    try {
+      const response = await axios.get(apiUrl, {
+        params: {
+          symbol: 'BTCUSDT',
+        },
+      });
+      console.log(response);
+      
+      // const price = parseFloat(response.data.price);
+      // console.log(`Current BTC price: $${price}`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -70,24 +70,5 @@ function App(): JSX.Element {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

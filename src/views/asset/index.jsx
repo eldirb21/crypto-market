@@ -6,16 +6,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   AppBar,
   Containers,
   Contents,
+  Floatings,
   Icons,
   Texts,
 } from '../../components/atoms';
+import {assetData} from '../../../globaldata';
 const {width, height} = Dimensions.get('window');
 const Asset = () => {
+  const [assets, setassets] = useState(assetData);
+  const [totalAsset, settotalAsset] = useState(null);
+
+  var summary = assets.reduce((x, a) => {
+    return x + a.Amount;
+  }, 0);
+
   return (
     <Containers>
       <AppBar title={'Asset'} />
@@ -40,11 +49,9 @@ const Asset = () => {
               elevation: 5,
             },
           ]}>
-          <Texts style={{fontSize: 14, fontWeight: '600'}}>
-            Nilai Ekuitas(BTC)
-          </Texts>
-          <Texts>0.124342342</Texts>
-          <Texts>=$388.23</Texts>
+          <Texts style={{fontSize: 14, fontWeight: '600'}}>Nilai Ekuitas</Texts>
+          {/* <Texts>0.124342342</Texts> */}
+          <Texts>= {summary}</Texts>
 
           <View
             style={{
@@ -100,14 +107,14 @@ const Asset = () => {
             </TouchableOpacity>
           </View>
           <ScrollView>
-            {[1, 2, 3, 4, 5,1, 2, 3, 4, 5,1, 2, 3, 4, 5,1, 2, 3, 4, 5].map((item, index) => {
+            {assets.map((item, index) => {
               return (
                 <TouchableOpacity
                   key={index}
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    padding: 8,
+                    padding: 10,
                     backgroundColor: '#FFF',
                     marginBottom: 5,
                     marginHorizontal: 15,
@@ -117,11 +124,13 @@ const Asset = () => {
                     <Icons name="facebook" color="blue" size={25} />
                   </View>
                   <View style={{flex: 1, marginLeft: 15}}>
-                    <Texts>ADA</Texts>
-                    <Texts>2.000</Texts>
+                    <Texts style={{fontSize: 14, fontWeight: 'bold'}}>
+                      {item.code}
+                    </Texts>
+                    <Texts>{item.perCoin}</Texts>
                   </View>
                   <View style={{flex: 1, alignItems: 'flex-end'}}>
-                    <Texts style={{color: '#000'}}>Rp.2.000.000</Texts>
+                    <Texts style={{color: '#000'}}>Rp {item.Amount}</Texts>
                     <Texts style={{color: 'red'}}>{'-2.000 (9.10%)'}</Texts>
                   </View>
                 </TouchableOpacity>
@@ -130,6 +139,7 @@ const Asset = () => {
           </ScrollView>
         </View>
       </Contents>
+      <Floatings icon="plus" bacground={'#CB9607'}/>
     </Containers>
   );
 };
