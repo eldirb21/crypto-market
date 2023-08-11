@@ -1,26 +1,20 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {dataTab} from './nav-data';
 import Icons from '../components/atoms/Icons';
 const Tab = createBottomTabNavigator();
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 function MyTabBar({state, descriptors, navigation}) {
   return (
-    <View
-      style={[
-        {flexDirection: 'row', backgroundColor: '#FFF'},
-        {
-          shadowRadius: 2,
-          shadowOffset: {
-            width: 0,
-            height: -12,
-          },
-          shadowColor: '#000000',
-          elevation: 10,
-        },
-      ]}>
+    <View style={styles.tabItem}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -55,7 +49,7 @@ function MyTabBar({state, descriptors, navigation}) {
             iconName = 'home';
             break;
           case 'Market':
-            iconName = 'equalizer';//stacked-line-chart
+            iconName = 'equalizer';
             break;
           case 'Assets':
             iconName = 'account-balance-wallet';
@@ -67,7 +61,6 @@ function MyTabBar({state, descriptors, navigation}) {
             iconName = 'folder-shared';
             break;
         }
-        console.log(iconName);
         return (
           <TouchableOpacity
             key={index}
@@ -77,18 +70,10 @@ function MyTabBar({state, descriptors, navigation}) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={[
-              {
-                flex: 1,
-                width: width / 4,
-                backgroundColor: '#FFF',
-                alignItems: 'center',
-                padding: 3,
-              },
-            ]}>
+            style={styles.btnTab}>
             <Icons
               name={iconName}
-              size={22}
+              size={24}
               color={isFocused ? '#673ab7' : '#222'}
             />
             <Text
@@ -114,4 +99,24 @@ const TabNav = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  tabItem: {
+    flexDirection: 'row',
+    backgroundColor: '#FFF',
+    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: -12,
+    },
+    shadowColor: '#000000',
+    elevation: 10,
+  },
+  btnTab: {
+    flex: 1,
+    width: width / 4,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    padding: 3,
+  },
+});
 export default TabNav;

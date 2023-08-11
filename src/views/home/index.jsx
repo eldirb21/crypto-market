@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, View, TouchableOpacity} from 'react-native';
+import {Dimensions, View, TouchableOpacity, ScrollView} from 'react-native';
 import {
   AppBar,
   Containers,
@@ -44,6 +44,32 @@ const Home = () => {
       text: 'Text 5',
     },
   ]);
+  const menus = [
+    {
+      name: 'Setor',
+      icon: '',
+      onPress: (item, index) => handlePressMenu(item, index),
+    },
+    {
+      name: 'Tarik',
+      icon: '',
+      onPress: (item, index) => handlePressMenu(item, index),
+    },
+    {
+      name: 'Kalkulator',
+      icon: '',
+      onPress: (item, index) => handlePressMenu(item, index),
+    },
+    {
+      name: 'Konversi',
+      icon: '',
+      onPress: (item, index) => handlePressMenu(item, index),
+    },
+  ];
+
+  const handlePressMenu = (item, index) => {
+    console.log(item, index);
+  };
   return (
     <Containers>
       <AppBar isBack isSearch title={'Home'} />
@@ -59,10 +85,11 @@ const Home = () => {
             borderRadius: 5,
             padding: 10,
           }}>
-          {[1, 2, 3, 4].map((item, index) => {
+          {menus.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}
+                onPress={() => item.onPress(item, index)}
                 style={{
                   alignItems: 'center',
                   padding: 5,
@@ -70,7 +97,7 @@ const Home = () => {
                   flex: 1,
                 }}>
                 <Icons name="facebook" color="blue" size={30} />
-                <Texts>Language</Texts>
+                <Texts>{item.name}</Texts>
               </TouchableOpacity>
             );
           })}
@@ -107,6 +134,17 @@ const Home = () => {
             );
           })}
         </CardSrollArrow>
+
+        <View>
+          <Texts></Texts>
+          {[1].map((x, i) => {
+            return (
+              <View key={i}>
+                <Texts>23132</Texts>
+              </View>
+            );
+          })}
+        </View>
       </Contents>
     </Containers>
   );
