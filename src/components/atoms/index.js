@@ -9,6 +9,7 @@ import Spinners from './Spinners'
 import TextArea from './TextArea'
 import TextInputs from './TextInputs'
 import Searchbar from './Searchbar'
+import Cards from './cards'
 
 import Texts from './Texts'
 import Carousel, { Pagination, ParallaxImage, getInputRangeFromIndexes } from './carousel'
@@ -29,6 +30,7 @@ export {
     Carousel,
     Pagination,
     ParallaxImage,
-    getInputRangeFromIndexes
+    getInputRangeFromIndexes,
+    Cards,
 
 }

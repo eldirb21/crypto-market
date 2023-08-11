@@ -63,7 +63,8 @@ yarn-error.log
 .metro-health-check*
 
 # Project Private
-src/redux
-src/utils
+#src/redux
+# src/utils
+# .env
 
 

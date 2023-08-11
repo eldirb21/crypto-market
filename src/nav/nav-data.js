@@ -5,7 +5,7 @@ const {default: Home} = require('../views/home');
 const {default: Market} = require('../views/market');
 const {default: Mine} = require('../views/mine');
 
-const dataTab = [
+const dataTab = [s
   {
     name: 'Home',
     component: Home,

@@ -1,50 +1,32 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import {SafeAreaView, ScrollView, View} from 'react-native';
+import {colors} from '../../constants/themes';
 
-export default function Contents({ bg, scroll, children, pt, pd, ph, pv, containerStyle, ...props }) {
-
-    var styled = [
-        containerStyle,
-        {
-            flex: 1,
-            display: 'flex',
-            backgroundColor: bg,
-        },
-    ];
-    return scroll ? (
-        <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}
-            style={[
-                styled,
-                pd && { padding: 20 },
-                ph && { paddingHorizontal: typeof ph != 'boolean' ? ph : 20 },
-                pt && { paddingTop: typeof pt != 'boolean' ? pt : 20 },
-                pv && { paddingVertical: 20 },
-            ]}
-            {...props}
-        >
-            <View
-                style={{
-                    flex: 1,
-                    marginBottom: 4,
-                    padding: pd ? 20 : 0,
-                }}
-            >
-                {children}
-            </View>
-        </ScrollView>
-    ) : (
-        <SafeAreaView
-            style={[
-                styled,
-                pd && { padding: 20 },
-                ph && { paddingHorizontal: 20 },
-                pv && { paddingVertical: 20 },
-            ]}
-            {...props}
-        >
-            {children}
-        </SafeAreaView>
-    );
+export default function Contents({
+  background,
+  isScroll,
+  contentStyle,
+  ...props
+}) {
+  var styled = [
+    contentStyle,
+    {
+      flex: 1,
+      display: 'flex',
+      backgroundColor: background ? background : colors.body,
+      paddingBottom: 4,
+    },
+  ];
+  return isScroll ? (
+    <ScrollView
+      contentContainerStyle={{flexGrow: 1}}
+      showsVerticalScrollIndicator={false}
+      {...props}>
+      <View style={styled}>{props.children}</View>
+    </ScrollView>
+  ) : (
+    <SafeAreaView style={styled} {...props}>
+      {props.children}
+    </SafeAreaView>
+  );
 }
